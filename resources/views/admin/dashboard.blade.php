@@ -1,75 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Sidebar */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar ul {
+            padding-left: 15px;
+        }
+
+        /* Jarak antar item di sidebar */
+        .sidebar .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .sidebar .nav-item a {
+            color: rgb(155, 155, 155);
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar .nav-item a i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* Hover effect */
+        .sidebar .nav-item a:hover {
+            color: #007bff;
+            background-color: #f0f0f0;
+        }
+
+        /* Active state */
+        .sidebar .nav-item a.active {
+            color: #007bff;
+            background-color: #e9ecef;
+        }
+
+        /* Collapse submenu */
+        .sidebar .collapse {
+            display: none;
+        }
+
+        .sidebar .collapse.show {
+            display: block;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Admin Dashboard</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Manage Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Reports</a>
-                    </li>
-                    <li class="nav-item">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-                        </form>
-                    </li>
-                </ul>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="container">
+            <div class="mb-4 text-center">
+                <!-- Logo -->
+                <img src="{{ asset('images/disarpus.png') }}" alt="Logo" class="img-fluid" style="height: 70px;">
             </div>
+            <!-- Search Form -->
+            <div class="mb-4">
+                <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+            </div>
+            <!-- Navigation Menu -->
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('dashboard') }}">
+                        <i class="fas fa-home-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#uplmSubmenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="uplmSubmenu">
+                        <i class="fas fa-chart-bar"></i> UPLM
+                    </a>
+                    <ul class="collapse list-unstyled" id="uplmSubmenu">
+                        @for ($i = 1; $i <= 7; $i++)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('uplm.show', $i) }}">UPLM {{ $i }}</a>
+                            </li>
+                        @endfor
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('user.create') }}">
+                        <i class="fas fa-user-plus"></i> Buat akun
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('recap') }}">
+                        <i class="fas fa-clipboard-list"></i> Rekapitulasi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('notifications') }}">
+                        <i class="fas fa-bell"></i> Notifikasi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('settings') }}">
+                        <i class="fas fa-cogs"></i> Pengaturan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-link text-danger">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
 
-    <div class="container mt-5">
-        <h1>Welcome, {{ Auth::user()->username }}!</h1>
-        <p class="lead">This is the admin dashboard where you can manage the system.</p>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Manage Users</h5>
-                        <p class="card-text">Add, update, or remove users from the system.</p>
-                        <a href="#" class="btn btn-light">Go to Users</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-white bg-success mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">View Reports</h5>
-                        <p class="card-text">Analyze system reports and statistics.</p>
-                        <a href="#" class="btn btn-light">Go to Reports</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-white bg-warning mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Settings</h5>
-                        <p class="card-text">Configure system settings and preferences.</p>
-                        <a href="#" class="btn btn-light">Go to Settings</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Content -->
+    <div class="content">
+        <h1>Selamat datang, {{ Auth::user()->username }}!</h1>
+        @yield('content')
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
