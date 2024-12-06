@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+// route side-bar
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/manage-users', [AdminController::class, 'manageUsers'])->name('manage.users');

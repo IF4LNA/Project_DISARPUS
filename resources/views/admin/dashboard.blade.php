@@ -18,14 +18,13 @@
             background-color: #f8f9fa;
             padding-top: 20px;
             border-right: 1px solid #ddd;
-            overflow-y: auto; /* Membuat sidebar bisa discroll */
+            overflow-y: auto;
         }
 
         .sidebar ul {
             padding-left: 15px;
         }
 
-        /* Jarak antar item di sidebar */
         .sidebar .nav-item {
             margin-bottom: 10px;
         }
@@ -72,6 +71,35 @@
             margin-left: 250px;
             padding: 20px;
         }
+
+        /* Navbar */
+        .navbar-custom {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 250px;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-custom .search-container {
+            flex-grow: 1;
+            max-width: 400px;
+            margin-right: 10px;
+        }
+
+        .navbar-custom .welcome-message {
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        /* Adjusting content for navbar */
+        .content {
+            margin-top: 70px; /* Give space for the navbar */
+        }
+
     </style>
 </head>
 
@@ -83,10 +111,6 @@
                 <!-- Logo -->
                 <img src="{{ asset('images/disarpus.png') }}" alt="Logo" class="img-fluid" style="height: 70px;">
             </div>
-            <!-- Search Form -->
-            <div class="mb-4">
-                <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
-            </div>
             <!-- Navigation Menu -->
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -95,7 +119,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link d-flex justify-content-between align-items-center" href="#uplmSubmenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="uplmSubmenu">
+                    <a class="nav-link d-flex justify-content-between align-items-center" href="#uplmSubmenu"
+                        data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="uplmSubmenu">
                         <span><i class="fas fa-chart-bar"></i> UPLM</span>
                         <i class="fas fa-chevron-down"></i>
                     </a>
@@ -139,9 +164,20 @@
         </div>
     </div>
 
+    <!-- Navbar -->
+    <div class="navbar-custom">
+        <div class="d-flex">
+            <div class="search-container">
+                <input type="text" class="form-control" placeholder="Search..." aria-label="Search">
+            </div>
+            <div class="welcome-message">
+                <h5>{{ Auth::user()->username }}!</h5>
+            </div>
+        </div>
+    </div>
+
     <!-- Content -->
     <div class="content">
-        <h1>Selamat datang, {{ Auth::user()->username }}!</h1>
         @yield('content')
     </div>
 
