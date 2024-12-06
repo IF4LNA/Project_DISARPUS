@@ -13,9 +13,6 @@
         }
 
         .navbar {
-            /* position: sticky;
-            top: 0;
-            z-index: 1000; */
             border-bottom: 1px solid #ccc;
             background-color: white;
         }
@@ -34,7 +31,7 @@
         }
 
         .navbar-nav .nav-link.active {
-            color: blue !important; /* Menetapkan warna biru untuk link yang aktif */
+            color: blue !important;
         }
 
         .navbar .container-fluid {
@@ -61,23 +58,17 @@
 
         .btn-utama {
             border: 2px solid blue;
-            /* Menambahkan border biru */
             background-color: transparent;
-            /* Menghilangkan warna latar belakang */
             color: blue;
-            /* Menambahkan warna teks biru */
             padding: 10px 20px;
             font-size: 16px;
             border-radius: 5px;
             transition: all 0.3s ease;
-            /* Efek transisi saat hover */
         }
 
         .btn-utama:hover {
             background-color: blue;
-            /* Mengubah latar belakang menjadi biru saat hover */
             color: white;
-            /* Mengubah warna teks menjadi putih */
         }
     </style>
 </head>
@@ -101,13 +92,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('home') || Request::is('/') ? 'active' : '' }}" href="{{ route('home') }}" id="homeLink">Home</a>
+                        <a class="nav-link" href="{{ route('home') }}" id="homeLink">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('tentang') ? 'active' : '' }}" href="{{ route('tentang') }}">Tentang</a>
+                        <a class="nav-link" href="{{ route('tentang') }}" id="tentangLink">Tentang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('bantuan') ? 'active' : '' }}" href="{{ route('bantuan') }}">Bantuan</a>
+                        <a class="nav-link" href="{{ route('bantuan') }}" id="bantuanLink">Bantuan</a>
                     </li>
                 </ul>
                 <form action="{{ route('login') }}" method="get">
@@ -137,17 +128,35 @@
     <!-- Script untuk mengatur kelas active pada Home saat scroll -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Menggunakan JavaScript untuk memantau scroll
-        window.addEventListener('scroll', function() {
-            const homeLink = document.getElementById('homeLink');
+        // Fungsi untuk menambahkan kelas aktif pada elemen navbar
+        function setActiveNav() {
+            var homeLink = document.getElementById('homeLink');
+            var tentangLink = document.getElementById('tentangLink');
+            var bantuanLink = document.getElementById('bantuanLink');
 
-            // Jika halaman digulir ke bawah, hapus kelas 'active' pada Home
-            if (window.scrollY > 50) {
-                homeLink.classList.remove('active');
-            } else {
-                // Jika halaman berada di atas (scroll di posisi awal), tambahkan kelas 'active' pada Home
-                homeLink.classList.add('active');
+            // Periksa URL saat ini dan atur kelas active
+            if (window.location.pathname === "/home" || window.location.pathname === "/") {
+                homeLink.classList.add("active");
+                tentangLink.classList.remove("active");
+                bantuanLink.classList.remove("active");
+            } else if (window.location.pathname === "/tentang") {
+                homeLink.classList.remove("active");
+                tentangLink.classList.add("active");
+                bantuanLink.classList.remove("active");
+            } else if (window.location.pathname === "/bantuan") {
+                homeLink.classList.remove("active");
+                tentangLink.classList.remove("active");
+                bantuanLink.classList.add("active");
             }
+        }
+
+        // Jalankan fungsi setActiveNav saat halaman selesai dimuat
+        window.onload = setActiveNav;
+
+        // Menangani scroll event untuk mengubah kelas aktif
+        window.addEventListener('scroll', function () {
+            // Tidak menghapus kelas 'active' saat scroll, cukup untuk hover tetap aktif
+            setActiveNav(); // Menambahkan kembali kelas aktif berdasarkan URL
         });
     </script>
 </body>
