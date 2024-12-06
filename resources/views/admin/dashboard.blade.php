@@ -18,6 +18,7 @@
             background-color: #f8f9fa;
             padding-top: 20px;
             border-right: 1px solid #ddd;
+            overflow-y: auto; /* Membuat sidebar bisa discroll */
         }
 
         .sidebar ul {
@@ -94,13 +95,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#uplmSubmenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="uplmSubmenu">
-                        <i class="fas fa-chart-bar"></i> UPLM
+                    <a class="nav-link d-flex justify-content-between align-items-center" href="#uplmSubmenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="uplmSubmenu">
+                        <span><i class="fas fa-chart-bar"></i> UPLM</span>
+                        <i class="fas fa-chevron-down"></i>
                     </a>
                     <ul class="collapse list-unstyled" id="uplmSubmenu">
                         @for ($i = 1; $i <= 7; $i++)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('uplm.show', $i) }}">UPLM {{ $i }}</a>
+                                <a class="nav-link ms-3" href="{{ route('uplm.show', $i) }}">UPLM {{ $i }}</a>
                             </li>
                         @endfor
                     </ul>
