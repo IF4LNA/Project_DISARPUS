@@ -22,13 +22,49 @@
             width: auto;
         }
 
+        /* Menghilangkan garis bawah default dan menambahkan efek hover dengan animasi */
         .navbar-nav .nav-link {
             color: black;
+            text-decoration: none;
+            position: relative;
+            /* Menambahkan posisi relative untuk menempatkan garis */
+            overflow: hidden;
+            /* Menyembunyikan garis sebelum muncul */
+            transition: color 0.3s ease;
+            /* Transisi untuk perubahan warna */
         }
 
+        /* Membuat garis bawah di elemen pseudo */
+        .navbar-nav .nav-link::after {
+            content: '';
+            /* Membuat elemen pseudo untuk garis bawah */
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: blue;
+            transform: scaleX(0);
+            /* Menyembunyikan garis */
+            transform-origin: center;
+            /* Menyusun garis dari tengah */
+            transition: transform 0.3s ease-out;
+            /* Transisi untuk animasi sliding */
+        }
+
+        /* Ketika hover, garis bawah akan muncul dengan animasi dari tengah */
+        .navbar-nav .nav-link:hover::after {
+            transform: scaleX(1);
+            /* Menampilkan garis secara horizontal */
+            transform-origin: center;
+            /* Menyusun garis dari tengah */
+        }
+
+        /* Menambahkan efek perubahan warna teks saat hover */
         .navbar-nav .nav-link:hover {
             color: blue !important;
         }
+
 
         .navbar-nav .nav-link.active {
             color: blue !important;
@@ -83,8 +119,9 @@
             </a>
 
             {{-- toogle button mobile --}}
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -117,7 +154,8 @@
     <footer class="bg-dark text-white mt-5 py-4">
         <div class="container text-center">
             <p>&copy; 2024 Dinas Arsip dan Perpustakaan Kota Bandung. Semua hak cipta dilindungi.</p>
-            <p>Hubungi kami: <a href="mailto:info@disarpusbandung.go.id" class="text-white">info@disarpusbandung.go.id</a></p>
+            <p>Hubungi kami: <a href="mailto:info@disarpusbandung.go.id"
+                    class="text-white">info@disarpusbandung.go.id</a></p>
             <p>
                 <a href="#" class="text-white">Kebijakan Privasi</a> |
                 <a href="#" class="text-white">Syarat dan Ketentuan</a>
@@ -154,7 +192,7 @@
         window.onload = setActiveNav;
 
         // Menangani scroll event untuk mengubah kelas aktif
-        window.addEventListener('scroll', function () {
+        window.addEventListener('scroll', function() {
             // Tidak menghapus kelas 'active' saat scroll, cukup untuk hover tetap aktif
             setActiveNav(); // Menambahkan kembali kelas aktif berdasarkan URL
         });
