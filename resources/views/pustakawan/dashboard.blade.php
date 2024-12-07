@@ -123,7 +123,7 @@
                         </li>
                         <!-- Isi Kuesioner di samping Profil -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Isi Kuesioner</a>
+                            <a class="nav-link" href="{{ route('form.data') }}">Isi Kuesioner</a>
                         </li>
                     </ul>
                 </div>

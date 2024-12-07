@@ -42,5 +42,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
+// route halaman pustakawan
+Route::middleware(['auth'])->group(function () {
+    Route::get('/form/data', [PustakawanController::class, 'kuesioner'])->name('form.data');
+});
+
+Route::post('/isikuesioner', [PustakawanController::class, 'kirimData'])->name('isikuesioner');
+
 
 
