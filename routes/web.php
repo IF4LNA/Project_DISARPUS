@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/manage-users', [AdminController::class, 'manageUsers'])->name('manage.users');
-    Route::get('/reports', [AdminController::class, 'reports'])->name('reports');
+    // Route::get('/reports', [AdminController::class, 'reports'])->name('reports');
     Route::get('/uplm/{id}', [AdminController::class, 'showUplm'])->name('uplm.show');
     Route::get('/user/create', [AdminController::class, 'createUser'])->name('user.create');
     Route::get('/recap', [AdminController::class, 'recap'])->name('recap');

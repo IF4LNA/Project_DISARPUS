@@ -6,17 +6,42 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    // Pastikan hanya admin yang bisa mengakses halaman ini
+    // Middleware untuk admin
     public function __construct()
     {
         $this->middleware('role:admin');
-        $this->middleware('noCache'); // Terapkan middleware untuk mencegah caching
+        $this->middleware('noCache'); // Mencegah caching
     }
 
-    // Halaman dashboard admin
+    // Dashboard admin
     public function index()
     {
         return view('admin.dashboard');
     }
-}
 
+    // Halaman UPLM
+    public function showUplm($id)
+    {
+        return view('admin.uplm', compact('id'));
+    }
+
+    public function createUser()
+    {
+        return view('admin.akun');
+    }
+
+    public function recap()
+    {
+        return view('admin.rekapitulasi');
+    }
+
+    public function notifications()
+    {
+        return view('admin.notifikasi');
+    }
+
+    public function settings()
+    {
+        return view('admin.pengaturan');
+    }
+}

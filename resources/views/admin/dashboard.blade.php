@@ -25,8 +25,9 @@
             padding-left: 15px;
         }
 
+        /* jarak fitur sidebar */
         .sidebar .nav-item {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .sidebar .nav-item a {
@@ -97,9 +98,9 @@
 
         /* Adjusting content for navbar */
         .content {
-            margin-top: 70px; /* Give space for the navbar */
+            margin-top: 70px;
+            /* Give space for the navbar */
         }
-
     </style>
 </head>
 
@@ -111,13 +112,17 @@
                 <!-- Logo -->
                 <img src="{{ asset('images/disarpus.png') }}" alt="Logo" class="img-fluid" style="height: 70px;">
             </div>
+
             <!-- Navigation Menu -->
             <ul class="nav flex-column">
+                <!-- Dashboard -->
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('dashboard') }}">
+                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                        href="{{ route('dashboard') }}">
                         <i class="fas fa-home-alt"></i> Dashboard
                     </a>
                 </li>
+                <!-- UPLM Dropdown -->
                 <li class="nav-item">
                     <a class="nav-link d-flex justify-content-between align-items-center" href="#uplmSubmenu"
                         data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="uplmSubmenu">
@@ -127,40 +132,52 @@
                     <ul class="collapse list-unstyled" id="uplmSubmenu">
                         @for ($i = 1; $i <= 7; $i++)
                             <li class="nav-item">
-                                <a class="nav-link ms-3" href="{{ route('uplm.show', $i) }}">UPLM {{ $i }}</a>
+                                <a class="nav-link ms-3 {{ request()->is('uplm/' . $i) ? 'active' : '' }}"
+                                    href="{{ route('uplm.show', $i) }}">
+                                    UPLM {{ $i }}
+                                </a>
                             </li>
                         @endfor
                     </ul>
                 </li>
+                <!-- Buat Akun -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('user.create') }}">
-                        <i class="fas fa-user-plus"></i> Buat akun
+                    <a class="nav-link {{ request()->routeIs('user.create') ? 'active' : '' }}"
+                        href="{{ route('user.create') }}">
+                        <i class="fas fa-user-plus"></i> Buat Akun
                     </a>
                 </li>
+                <!-- Rekapitulasi -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('recap') }}">
+                    <a class="nav-link {{ request()->routeIs('recap') ? 'active' : '' }}" href="{{ route('recap') }}">
                         <i class="fas fa-clipboard-list"></i> Rekapitulasi
                     </a>
                 </li>
+                <!-- Notifikasi -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('notifications') }}">
+                    <a class="nav-link {{ request()->routeIs('notifications') ? 'active' : '' }}"
+                        href="{{ route('notifications') }}">
                         <i class="fas fa-bell"></i> Notifikasi
                     </a>
                 </li>
+                <!-- Pengaturan -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('settings') }}">
+                    <a class="nav-link {{ request()->routeIs('settings') ? 'active' : '' }}"
+                        href="{{ route('settings') }}">
                         <i class="fas fa-cogs"></i> Pengaturan
                     </a>
                 </li>
+                <!-- Logout -->
                 <li class="nav-item">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="btn btn-link text-danger">
+                        <button type="submit" class="btn btn-link nav-link text-danger">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </button>
                     </form>
                 </li>
             </ul>
+
         </div>
     </div>
 
