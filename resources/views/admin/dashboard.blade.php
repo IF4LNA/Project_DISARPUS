@@ -168,7 +168,7 @@
                     </a>
                 </li>
                 <!-- Logout -->
-                <li class="nav-item">
+                <li class="nav-item mt-5">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="btn btn-link nav-link text-danger">
@@ -195,6 +195,7 @@
 
     <!-- Content -->
     <div class="content">
+        <h2>Selamat datang!</h2>
         @yield('content')
     </div>
 
