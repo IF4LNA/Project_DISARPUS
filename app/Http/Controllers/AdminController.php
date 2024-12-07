@@ -22,8 +22,16 @@ class AdminController extends Controller
     // Halaman UPLM
     public function showUplm($id)
     {
-        return view('admin.uplm', compact('id'));
+        $viewName = 'admin.uplm' . $id;
+
+        if (view()->exists($viewName)) {
+            return view($viewName);
+        } else {
+            // Handle error or provide a fallback view
+            return abort(404, 'Page not found');
+        }
     }
+
 
     public function createUser()
     {

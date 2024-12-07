@@ -139,7 +139,7 @@
                             </li>
                         @endfor
                     </ul>
-                </li>
+                </li>                
                 <!-- Buat Akun -->
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('user.create') ? 'active' : '' }}"
