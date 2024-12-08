@@ -18,7 +18,9 @@
             background-color: #f8f9fa;
             padding-top: 20px;
             border-right: 1px solid #ddd;
-            overflow-y: auto;
+            overflow-y: overlay;
+            /* Scrollbar tidak memakan ruang */
+            padding-right: 0;
         }
 
         .sidebar ul {
@@ -39,6 +41,7 @@
             position: relative;
             padding: 10px 15px;
             border-radius: 5px;
+            width: fit-content;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -50,13 +53,11 @@
         /* Hover effect */
         .sidebar .nav-item a:hover {
             color: #007bff;
-            background-color: #f0f0f0;
         }
 
         /* Active state */
         .sidebar .nav-item a.active {
             color: #007bff;
-            background-color: #e9ecef;
         }
 
         /* Collapse submenu */
@@ -101,6 +102,11 @@
             margin-top: 70px;
             /* Give space for the navbar */
         }
+
+        .sidebar .nav-item a i.toggle-icon {
+            padding-left: 10px;
+            /* Menambah jarak antara teks dan ikon */
+        }
     </style>
 </head>
 
@@ -127,7 +133,7 @@
                     <a class="nav-link d-flex justify-content-between align-items-center" href="#uplmSubmenu"
                         data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="uplmSubmenu">
                         <span><i class="fas fa-chart-bar"></i> UPLM</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <i class="fas fa-chevron-right toggle-icon"></i>
                     </a>
                     <ul class="collapse list-unstyled" id="uplmSubmenu">
                         @for ($i = 1; $i <= 7; $i++)
@@ -139,7 +145,7 @@
                             </li>
                         @endfor
                     </ul>
-                </li>                
+                </li>
                 <!-- Buat Akun -->
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('user.create') ? 'active' : '' }}"
@@ -198,6 +204,44 @@
         <h2>Selamat datang!</h2>
         @yield('content')
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleLink = document.querySelector('[href="#uplmSubmenu"]');
+            const toggleIcon = toggleLink.querySelector('.toggle-icon');
+            const submenu = document.querySelector('#uplmSubmenu');
+            
+            // Cek status submenu di sessionStorage
+            if (sessionStorage.getItem('uplmSubmenu') === 'open') {
+                submenu.classList.add('show'); // Pastikan submenu terbuka jika statusnya 'open'
+                toggleIcon.classList.remove('fa-chevron-right');
+                toggleIcon.classList.add('fa-chevron-down');
+            } else {
+                submenu.classList.remove('show'); // Pastikan submenu tertutup jika statusnya 'closed'
+                toggleIcon.classList.remove('fa-chevron-down');
+                toggleIcon.classList.add('fa-chevron-right');
+            }
+    
+            // Menambahkan event listener untuk ketika submenu muncul
+            submenu.addEventListener('show.bs.collapse', function() {
+                toggleIcon.classList.remove('fa-chevron-right');
+                toggleIcon.classList.add('fa-chevron-down');
+                // Simpan status 'open' saat submenu terbuka
+                sessionStorage.setItem('uplmSubmenu', 'open');
+            });
+    
+            // Menambahkan event listener untuk ketika submenu tersembunyi
+            submenu.addEventListener('hide.bs.collapse', function() {
+                toggleIcon.classList.remove('fa-chevron-down');
+                toggleIcon.classList.add('fa-chevron-right');
+                // Simpan status 'closed' saat submenu tertutup
+                sessionStorage.setItem('uplmSubmenu', 'closed');
+            });
+        });
+    </script>
+    
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
