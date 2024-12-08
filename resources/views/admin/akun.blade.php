@@ -201,58 +201,46 @@
 
     <!-- Content -->
     <div class="content">
-        <h2>Selamat datang!</h2>
+        <h2>Selamat datang dihalaman buat akun!</h2>
         @yield('content')
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const toggleLink = document.querySelector('[href="#uplmSubmenu"]');
-        const toggleIcon = toggleLink.querySelector('.toggle-icon');
-        const submenu = document.querySelector('#uplmSubmenu');
-        
-        // Cek status submenu di sessionStorage
-        if (sessionStorage.getItem('uplmSubmenu') === 'open') {
-            submenu.classList.add('show'); // Pastikan submenu terbuka jika statusnya 'open'
-            toggleIcon.classList.remove('fa-chevron-right');
-            toggleIcon.classList.add('fa-chevron-down');
-        } else {
-            submenu.classList.remove('show'); // Pastikan submenu tertutup jika statusnya 'closed'
-            toggleIcon.classList.remove('fa-chevron-down');
-            toggleIcon.classList.add('fa-chevron-right');
-        }
-
-        // Menambahkan event listener untuk ketika submenu muncul
-        submenu.addEventListener('show.bs.collapse', function() {
-            toggleIcon.classList.remove('fa-chevron-right');
-            toggleIcon.classList.add('fa-chevron-down');
-            // Simpan status 'open' saat submenu terbuka
-            sessionStorage.setItem('uplmSubmenu', 'open');
-        });
-
-        // Menambahkan event listener untuk ketika submenu tersembunyi
-        submenu.addEventListener('hide.bs.collapse', function() {
-            toggleIcon.classList.remove('fa-chevron-down');
-            toggleIcon.classList.add('fa-chevron-right');
-            // Simpan status 'closed' saat submenu tertutup
-            sessionStorage.setItem('uplmSubmenu', 'closed');
-        });
-
-        // Menyimpan posisi scroll saat mengklik menu
-        const menuLinks = document.querySelectorAll('.nav-link');
-        menuLinks.forEach(function(link) {
-            link.addEventListener('click', function(event) {
-                // Cegah reload halaman dan simpan posisi scroll
-                sessionStorage.setItem('scrollPosition', window.scrollY);
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleLink = document.querySelector('[href="#uplmSubmenu"]');
+            const toggleIcon = toggleLink.querySelector('.toggle-icon');
+            const submenu = document.querySelector('#uplmSubmenu');
+            
+            // Cek status submenu di sessionStorage
+            if (sessionStorage.getItem('uplmSubmenu') === 'open') {
+                submenu.classList.add('show'); // Pastikan submenu terbuka jika statusnya 'open'
+                toggleIcon.classList.remove('fa-chevron-right');
+                toggleIcon.classList.add('fa-chevron-down');
+            } else {
+                submenu.classList.remove('show'); // Pastikan submenu tertutup jika statusnya 'closed'
+                toggleIcon.classList.remove('fa-chevron-down');
+                toggleIcon.classList.add('fa-chevron-right');
+            }
+    
+            // Menambahkan event listener untuk ketika submenu muncul
+            submenu.addEventListener('show.bs.collapse', function() {
+                toggleIcon.classList.remove('fa-chevron-right');
+                toggleIcon.classList.add('fa-chevron-down');
+                // Simpan status 'open' saat submenu terbuka
+                sessionStorage.setItem('uplmSubmenu', 'open');
+            });
+    
+            // Menambahkan event listener untuk ketika submenu tersembunyi
+            submenu.addEventListener('hide.bs.collapse', function() {
+                toggleIcon.classList.remove('fa-chevron-down');
+                toggleIcon.classList.add('fa-chevron-right');
+                // Simpan status 'closed' saat submenu tertutup
+                sessionStorage.setItem('uplmSubmenu', 'closed');
             });
         });
+    </script>
+    
 
-        // Mengembalikan posisi scroll setelah halaman dimuat
-        if (sessionStorage.getItem('scrollPosition')) {
-            window.scrollTo(0, sessionStorage.getItem('scrollPosition'));
-        }
-    });
-</script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
